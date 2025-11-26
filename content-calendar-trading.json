@@ -1,0 +1,53 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "40d764d3-b6fa-4cd9-9525-91718c6fa6de",
+      "name": "Content Calendar - Trading - Pilo"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este flujo genera ideas de contenido para 10 días\n// sobre trading/finanzas al estilo educativo de Pilo.\n\nconst topics = [\n  \"Introducción al trading de forex para principiantes\",\n  \"Qué es un lote, un pip y un apalancamiento (con ejemplos sencillos)\",\n  \"Cómo funciona el stop loss y por qué te salva la cuenta\",\n  \"Diferencia entre análisis técnico y fundamental\",\n  \"Indicador MACD aplicado a EURUSD\",\n  \"Gestión de riesgo: por qué nunca arriesgar más del 1-2%\",\n  \"Errores comunes de los traders novatos\",\n  \"Cómo leer un gráfico de velas en 1 minuto\",\n  \"Qué es un broker y qué debes mirar antes de elegir uno\",\n  \"Sesiones del mercado (Londres, NY, Asia) y su impacto\"\n];\n\nconst today = new Date();\nconst data = [];\n\nfor (let i = 0; i < topics.length; i++) {\n  const date = new Date(today);\n  date.setDate(today.getDate() + i);\n\n  data.push({\n    day_number: i + 1,\n    date: date.toISOString().split('T')[0],\n    content_topic: topics[i],\n    content_type: \"Reel educativo\",\n    platform: \"Instagram / TikTok\",\n    status: \"Idea\",\n  });\n}\n\n// La nueva versión del nodo obliga a retornar un OBJETO:\nreturn {\n  items: data.map(entry => ({ json: entry }))\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "6894995c-c860-4e0d-b06b-eabf5e959b99",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Content Calendar - Trading - Pilo": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7d396abb-93f8-407b-bc5e-601554dcbd71",
+  "meta": {
+    "instanceId": "048994e59adae464ee0ca8b857baa1f696b3628666f1b5275aadef64c4cbe0fb"
+  },
+  "id": "LmOCgOljOYApJACt",
+  "tags": []
+}
